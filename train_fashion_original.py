@@ -37,8 +37,8 @@ parser = argparse.ArgumentParser()
 # att_default = ["Mânecă", "Mânecă scurtă", "Mânecă umăr", "Mânecă mijlocie / Mânecă 5 minute", "Mânecă 6 minute / Mânecă 7 minute / Mânecă 8 minute", "Mânecă 9 minute", "Lungă Manșon "," roșu "," roz "," portocaliu "," galben "," verde "," albastru "," violet "," gri "," negru "," alb "," bej "," maro "," Maro "," cafea "," cămilă "," cais "," cyan "," bleumarin "," argintiu "," culoare floare "," auriu "]
 
 # ----------------------------------------CHANGED-----------------------------------------
-att_default = ["black", "blue", "brown", "green", "grey", "orange", "pink", "purple", "red", "white", "yellow", "dresses",
-        "tops", "tshirts", "shirts", "blouses", "jackets", "shorts", "pants", "jeans", "skirts", "jumpsuits", "coats"]
+att_default = ["black", "blue", "brown", "green", "grey", "orange", "pink", "purple", "red", "white", "yellow",
+        "tops", "tshirts", "blouses"]
 
 parser.add_argument('--atts', dest='atts', default=att_default, choices=data.Celeba.att_dict.keys(), nargs='+',
                     help='attributes to learn')

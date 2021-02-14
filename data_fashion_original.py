@@ -219,8 +219,7 @@ class Celeba(Dataset):
     # }
     att_dict = {
         "black": 0, "blue": 1, "brown": 2, "green": 3, "grey": 4, "orange": 5, "pink": 6, "purple": 7,
-        "red": 8, "white": 9, "yellow": 10, "dresses": 11, "tops": 12, "tshirts": 13, "shirts": 14,
-        "blouses": 15, "jackets": 16, "shorts": 17, "pants": 18, "jeans": 19, "skirts": 20, "jumpsuits": 21, "coats": 22
+        "red": 8, "white": 9, "yellow": 10, "tops": 11, "tshirts": 12, "blouses": 13
     }
 
     def __init__(self, data_dir, atts, img_resize, batch_size, prefetch_batch=2, drop_remainder=True,
@@ -229,7 +228,7 @@ class Celeba(Dataset):
 
         # ----------------------------------------CHANGED-----------------------------------------
         # list_file = os.path.join(data_dir, 'list_attr_upperbody.txt')
-        list_file = os.path.join(data_dir, 'AI4Fashion_Labels_Attr_GANS_upperbody.txt')
+        list_file = os.path.join(data_dir, 'AItop.txt')
         if crop:
             img_dir_jpg = os.path.join(data_dir, '')
             img_dir_png = os.path.join(data_dir, 'png')
@@ -319,12 +318,10 @@ class Celeba(Dataset):
         for att in att_batch:
             # ----------------------------------------CHANGED-----------------------------------------
             # if att_name in ["无袖", "短袖", "盖肩袖", "中袖/5分袖", "6分袖/7分袖/8分袖", "9分袖", "长袖"] \
-            if att_name in ["dresses", "tops", "tshirts", "shirts", "blouses", "jackets", "shorts", "pants", "jeans",
-                            "skirts", "jumpsuits", "coats"] \
+            if att_name in ["tops", "tshirts", "blouses"] \
                     and att[att_id] == 1:
                 # for n in ["无袖", "短袖", "盖肩袖", "中袖/5分袖", "6分袖/7分袖/8分袖", "9分袖", "长袖"]:
-                for n in ["dresses", "tops", "tshirts", "shirts", "blouses", "jackets", "shorts", "pants", "jeans",
-                          "skirts", "jumpsuits", "coats"]:
+                for n in ["tops", "tshirts", "blouses"]:
                     if n != att_name:
                         _set(att, 0, n)
             # elif att_name in ["红色", "粉色", "橙色", "黄色", "绿色", "蓝色", "紫色", "灰色", "黑色", "白色", "米色", "棕色", "褐色", "咖色", "驼色",
@@ -334,8 +331,7 @@ class Celeba(Dataset):
                     and att[att_id] == 1:
                 # for n in ["红色", "粉色", "橙色", "黄色", "绿色", "蓝色", "紫色", "灰色", "黑色", "白色", "米色", "棕色", "褐色", "咖色", "驼色",
                 #           "杏色", "青色", "藏青色", "银色", "花色", "金色"]:
-                for n in ["black", "blue", "brown", "green", "grey", "orange", "pink", "purple", "red", "white",
-                          "yellow"]:
+                for n in ["black", "blue", "brown", "green", "grey", "orange", "pink", "purple", "red", "white", "yellow"]:
                     if n != att_name:
                         _set(att, 0, n)
 
@@ -349,10 +345,10 @@ class Celeba(Dataset):
         for att in att_batch:
             # print('att before change')
             # print(att)
-            attr_intervals = [[0, 23], [23, 49], [49, 76], [76, 79], [79, 89], [89, 105], [105, 131], [131, 138],
-                              [138, 148], [148, 152], [152, 161], [161, 174], [174, 184], [184, 207], [207, 230],
-                              [230, 246], [246, 262], [262, 268]]
-            attr_intervals = [[0, 10], [10, 22]]
+            # attr_intervals = [[0, 23], [23, 49], [49, 76], [76, 79], [79, 89], [89, 105], [105, 131], [131, 138],
+            #                   [138, 148], [148, 152], [152, 161], [161, 174], [174, 184], [184, 207], [207, 230],
+            #                   [230, 246], [246, 262], [262, 268]]
+            attr_intervals = [[0, 10], [10, 13]]
             intervals_to_change = random.sample(attr_intervals, max_change_num)
             for intervals in intervals_to_change:
                 for i in range(intervals[0], intervals[1]):
@@ -393,9 +389,8 @@ if __name__ == '__main__':
     #         "黑色", "白色", "米色", "棕色", "褐色", "咖色", "驼色", "杏色", "青色", "藏青色", "银色", "花色", "金色"]
 
     # ----------------------------------------CHANGED-----------------------------------------
-    atts = ["black", "blue", "brown", "green", "grey", "orange", "pink", "purple", "red", "white", "yellow", "dresses",
-            "tops", "tshirts", "shirts", "blouses", "jackets", "shorts", "pants", "jeans", "skirts", "jumpsuits",
-            "coats"]
+    atts = ["black", "blue", "brown", "green", "grey", "orange", "pink", "purple", "red", "white", "yellow",
+            "tops", "tshirts", "blouses"]
 
     data = Celeba('./data', atts, 128, 32, part='val')
     batch = data.get_next()
